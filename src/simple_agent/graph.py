@@ -8,10 +8,15 @@ from datetime import datetime, timezone
 from typing import Any
 
 from langchain.agents import create_agent
+from langchain.chat_models import init_chat_model
 from langchain_core.tools import tool
 
-DEFAULT_MODEL = os.getenv("SIMPLE_AGENT_MODEL", "anthropic:claude-sonnet-4-6")
-
+model = init_chat_model(
+    model="google/gemini-3.5-flash-lite",
+    model_provider="openai",
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.environ["OPENROUTER_API_KEY"],
+)
 
 @tool
 def utc_now() -> str:
@@ -51,7 +56,7 @@ def calculator(expression: str) -> str:
 
 
 graph = create_agent(
-    model=DEFAULT_MODEL,
+    model=model,
     tools=[utc_now, calculator],
     system_prompt=(
         "You are a concise assistant. "
