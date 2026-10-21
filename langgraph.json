@@ -3,7 +3,8 @@
   "python_version": "3.13",
   "dependencies": ["."],
   "graphs": {
-    "agent": "simple_agent.graph:graph"
+    "agent": "simple_agent.graph:graph",
+    "vacances": "simple_agent.vacances:graph"
   },
   "env": ".env",
   "image_distro": "wolfi"
